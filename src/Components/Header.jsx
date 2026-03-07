@@ -32,7 +32,7 @@ function Header({ bgImage = "bg-transparent" }) {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    const headerBg = scrollY > 50 ? 'bg-obsidian' : bgImage
+    const headerBg = scrollY > 50 ? 'bg-obsidian/95' : bgImage
 
     // role helpers derived from accountRole to distinguish clients/staff/admin
     const isAdmin = currentUser?.accountRole === 'admin';
@@ -53,7 +53,7 @@ function Header({ bgImage = "bg-transparent" }) {
     return (
         <header className={`fixed top-0 left-0 w-full z-50 text-white pb-2 transition-colors duration-300 ${headerBg}`}>
             <nav>
-                <div className="flex flex-wrap justify-between items-center py-4 px-6 md:px-14 relative mt-0.5">
+                <div className="flex flex-wrap justify-between items-center py-5.5 pl-6 pr-6 md:pr-13 md:pl-22 relative mt-0.5">
                     <div className="logo ">
                         <Link to="/">
                             <svg width="99" height="46" viewBox="0 0 99 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +91,7 @@ function Header({ bgImage = "bg-transparent" }) {
                     </button>
 
                     {/* Desktop Navigation - Hidden on mobile  */}
-                    <div className="pages hidden md:flex items-center gap-10 justify-between mt-4">
+                    <div className="pages hidden md:flex items-center justify-between mt-4 gap-9">
                         <ul className='flex gap-10 font-semibold text-sm uppercase w-full tracking-widest'>
                             <li>
                                 <Link
@@ -140,128 +140,140 @@ function Header({ bgImage = "bg-transparent" }) {
                                 </NavLink>
                             </li>
                         </ul>
-                        {/* account section */}
-                        <div className="account relative">
-                            {isAuthenticated ? (
-                                <div className="relative">
-                                    {/* User Icon Button */}
-                                    <button
-                                        className={`flex items-center gap-2 text-white ${isDropdownOpen ? 'text-champagne' : ''} hover:text-champagne transition-colors group cursor-pointer`}
-                                        onMouseEnter={() => setIsDropdownOpen(true)}
-                                        onMouseLeave={() => setIsDropdownOpen(true)}
-                                    >
-                                        <svg className="nav-icon w-5 h-5" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6.5 0C2.912 0 0 2.912 0 6.5C0 10.088 2.912 13 6.5 13C10.088 13 13 10.088 13 6.5C13 2.912 10.088 0 6.5 0ZM3.4775 10.725C4.329 10.114 5.369 9.75 6.5 9.75C7.631 9.75 8.671 10.114 9.5225 10.725C8.671 11.336 7.631 11.7 6.5 11.7C5.369 11.7 4.329 11.336 3.4775 10.725ZM10.491 9.828C9.3925 8.97 8.008 8.45 6.5 8.45C4.992 8.45 3.6075 8.97 2.509 9.828C1.755 8.9245 1.3 7.7675 1.3 6.5C1.3 3.627 3.627 1.3 6.5 1.3C9.373 1.3 11.7 3.627 11.7 6.5C11.7 7.7675 11.245 8.9245 10.491 9.828Z" fill="currentColor"></path>
-                                            <path d="M6.49961 2.59998C5.24511 2.59998 4.22461 3.62048 4.22461 4.87498C4.22461 6.12948 5.24511 7.14998 6.49961 7.14998C7.75411 7.14998 8.77461 6.12948 8.77461 4.87498C8.77461 3.62048 7.75411 2.59998 6.49961 2.59998ZM6.49961 5.84998C5.96011 5.84998 5.52461 5.41448 5.52461 4.87498C5.52461 4.33548 5.96011 3.89998 6.49961 3.89998C7.03911 3.89998 7.47461 4.33548 7.47461 4.87498C7.47461 5.41448 7.03911 5.84998 6.49961 5.84998Z" fill="currentColor"></path>
-                                        </svg>
-                                        {/* <span className="text-sm font-medium">{currentUser?.name || 'User'}</span> */}
-                                        <i className="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
-                                    </button>
+                        {/* Actions section */}
+                        <div className="flex items-center gap-6">
+                            {/* Book Appointment Button */}
+                            <a
+                                href="#services"
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    goToSection('appointment')
+                                }}
+                                className="hidden lg:flex bg-champagne text-white px-6 py-2 font-bold uppercase tracking-widest text-xs whitespace-nowrap hover:bg-obsidian hover:border hover:border-champagne transition-colors duration-300 overflow-hidden group"
+                            >
+                                BOOK APPOINTMENT
+                            </a>
 
-                                    {/* Dropdown Menu */}
-                                    {isDropdownOpen && (
-                                        <div
-                                            className="absolute right-0 top-full mt-6 w-64 bg-obsidian/70 border border-gray-800/80 shadow-2xl rounded-lg z-50 py-2"
+                            {/* account section */}
+                            <div className="account relative">
+                                {isAuthenticated ? (
+                                    <div className="relative">
+                                        {/* User Icon Button */}
+                                        <button
+                                            className={`flex items-center gap-2 text-white ${isDropdownOpen ? 'text-champagne' : ''} hover:text-champagne transition-colors group cursor-pointer`}
                                             onMouseEnter={() => setIsDropdownOpen(true)}
-                                            onMouseLeave={() => setIsDropdownOpen(false)}
+                                            onMouseLeave={() => setIsDropdownOpen(true)}
                                         >
-                                            {/* User Info Section */}
-                                            <div className="px-4 py-3 border-b border-gray-700">
-                                                <p className="text-champagne font-semibold text-sm uppercase tracking-wide">My Account</p>
-                                                <p className="text-white text-lg font-medium mt-1">{currentUser?.name || 'User'}</p>
-                                                <p className="text-gray-400 text-sm">{currentUser?.email || 'user@example.com'}</p>
-                                            </div>
+                                            <svg className="nav-icon w-5 h-5" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.5 0C2.912 0 0 2.912 0 6.5C0 10.088 2.912 13 6.5 13C10.088 13 13 10.088 13 6.5C13 2.912 10.088 0 6.5 0ZM3.4775 10.725C4.329 10.114 5.369 9.75 6.5 9.75C7.631 9.75 8.671 10.114 9.5225 10.725C8.671 11.336 7.631 11.7 6.5 11.7C5.369 11.7 4.329 11.336 3.4775 10.725ZM10.491 9.828C9.3925 8.97 8.008 8.45 6.5 8.45C4.992 8.45 3.6075 8.97 2.509 9.828C1.755 8.9245 1.3 7.7675 1.3 6.5C1.3 3.627 3.627 1.3 6.5 1.3C9.373 1.3 11.7 3.627 11.7 6.5C11.7 7.7675 11.245 8.9245 10.491 9.828Z" fill="currentColor"></path>
+                                                <path d="M6.49961 2.59998C5.24511 2.59998 4.22461 3.62048 4.22461 4.87498C4.22461 6.12948 5.24511 7.14998 6.49961 7.14998C7.75411 7.14998 8.77461 6.12948 8.77461 4.87498C8.77461 3.62048 7.75411 2.59998 6.49961 2.59998ZM6.49961 5.84998C5.96011 5.84998 5.52461 5.41448 5.52461 4.87498C5.52461 4.33548 5.96011 3.89998 6.49961 3.89998C7.03911 3.89998 7.47461 4.33548 7.47461 4.87498C7.47461 5.41448 7.03911 5.84998 6.49961 5.84998Z" fill="currentColor"></path>
+                                            </svg>
+                                            {/* <span className="text-sm font-medium">{currentUser?.name || 'User'}</span> */}
+                                            <i className="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                                        </button>
 
-                                            {/* Navigation Section */}
-                                            <div className="py-2">
-                                                {isAdmin && (
-                                                    // Admin Links
-                                                    <Link
-                                                        to="/admin/dashboard"
-                                                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
-                                                    >
-                                                        <i className="fas fa-tachometer-alt w-5"></i>
-                                                        <span>Admin Dashboard</span>
-                                                    </Link>
-                                                )}
-                                                {isStaff && (
-                                                    // Staff Links
-                                                    <>
+                                        {/* Dropdown Menu */}
+                                        {isDropdownOpen && (
+                                            <div
+                                                className="absolute right-0 top-full mt-6 w-64 bg-obsidian/70 border border-gray-800/80 shadow-2xl rounded-lg z-50 py-2"
+                                                onMouseEnter={() => setIsDropdownOpen(true)}
+                                                onMouseLeave={() => setIsDropdownOpen(false)}
+                                            >
+                                                {/* User Info Section */}
+                                                <div className="px-4 py-3 border-b border-gray-700">
+                                                    <p className="text-champagne font-semibold text-sm uppercase tracking-wide">My Account</p>
+                                                    <p className="text-white text-lg font-medium mt-1">{currentUser?.name || 'User'}</p>
+                                                    <p className="text-gray-400 text-sm">{currentUser?.email || 'user@example.com'}</p>
+                                                </div>
+
+                                                {/* Navigation Section */}
+                                                <div className="py-2">
+                                                    {isAdmin && (
+                                                        // Admin Links
                                                         <Link
-                                                            to="/staff/dashboard"
+                                                            to="/admin/dashboard"
                                                             className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
                                                         >
                                                             <i className="fas fa-tachometer-alt w-5"></i>
-                                                            <span>Staff Dashboard</span>
+                                                            <span>Admin Dashboard</span>
                                                         </Link>
-                                                        <Link
-                                                            to="/staff/appointments"
-                                                            className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
+                                                    )}
+                                                    {isStaff && (
+                                                        // Staff Links
+                                                        <>
+                                                            <Link
+                                                                to="/staff/dashboard"
+                                                                className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
+                                                            >
+                                                                <i className="fas fa-tachometer-alt w-5"></i>
+                                                                <span>Staff Dashboard</span>
+                                                            </Link>
+                                                            <Link
+                                                                to="/staff/appointments"
+                                                                className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
+                                                            >
+                                                                <i className="fas fa-calendar-alt w-5"></i>
+                                                                <span>My Appointments</span>
+                                                            </Link>
+                                                            <Link
+                                                                to="/staff/profile"
+                                                                className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
+                                                            >
+                                                                <i className="fas fa-user w-5"></i>
+                                                                <span>My Profile</span>
+                                                            </Link>
+                                                        </>
+                                                    )}
+                                                    {isClient && (
+                                                        // Client/User Links
+                                                        <>
+                                                            <Link
+                                                                to="/account"
+                                                                className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
+                                                            >
+                                                                <i className="fas fa-user w-5"></i>
+                                                                <span>My Profile</span>
+                                                            </Link>
+                                                            <Link
+                                                                to="/account?tab=appointments"
+                                                                className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
+                                                            >
+                                                                <i className="fas fa-calendar-alt w-5"></i>
+                                                                <span>My Appointments</span>
+                                                            </Link>
+                                                            <a
+                                                                href="#services"
+                                                                onClick={(e) => {
+                                                                    e.preventDefault()
+                                                                    goToSection('appointment')
+                                                                }}
+                                                                className='flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors'
+                                                            >
+                                                                <i className="fas fa-plus-circle w-5"></i>
+                                                                <span>Book Appointment</span>
+                                                            </a>
+                                                        </>
+                                                    )}
+                                                    <div className="border-t border-gray-700 mt-2 pt-2">
+                                                        <button
+                                                            onClick={logout}
+                                                            className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-red-400 hover:bg-gray-900/3 transition-colors w-full text-left cursor-pointer"
                                                         >
-                                                            <i className="fas fa-calendar-alt w-5"></i>
-                                                            <span>My Appointments</span>
-                                                        </Link>
-                                                        <Link
-                                                            to="/staff/profile"
-                                                            className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
-                                                        >
-                                                            <i className="fas fa-user w-5"></i>
-                                                            <span>My Profile</span>
-                                                        </Link>
-                                                    </>
-                                                )}
-                                                {isClient && (
-                                                    // Client/User Links
-                                                    <>
-                                                        <Link
-                                                            to="/account"
-                                                            className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
-                                                        >
-                                                            <i className="fas fa-user w-5"></i>
-                                                            <span>My Profile</span>
-                                                        </Link>
-                                                        <Link
-                                                            to="/account?tab=appointments"
-                                                            className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors"
-                                                        >
-                                                            <i className="fas fa-calendar-alt w-5"></i>
-                                                            <span>My Appointments</span>
-                                                        </Link>
-                                                        <a
-                                                            href="#services"
-                                                            onClick={(e) => {
-                                                                e.preventDefault()
-                                                                goToSection('appointment')
-                                                            }}
-                                                            className='flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-champagne hover:bg-gray-900/3 transition-colors'
-                                                        >
-                                                            <i className="fas fa-plus-circle w-5"></i>
-                                                            <span>Book Appointment</span>
-                                                        </a>
-                                                    </>
-                                                )}
-                                                <div className="border-t border-gray-700 mt-2 pt-2">
-                                                    <button
-                                                        onClick={logout}
-                                                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-red-400 hover:bg-gray-900/3 transition-colors w-full text-left cursor-pointer"
-                                                    >
-                                                        <i className="fas fa-sign-out-alt w-5"></i>
-                                                        <span>Logout</span>
-                                                    </button>
+                                                            <i className="fas fa-sign-out-alt w-5"></i>
+                                                            <span>Logout</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <Link to="/login" className="flex items-center gap-2 text-white hover:text-champagne transition-colors">
-                                    <svg className="nav-icon w-5 h-5" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.5 0C2.912 0 0 2.912 0 6.5C0 10.088 2.912 13 6.5 13C10.088 13 13 10.088 13 6.5C13 2.912 10.088 0 6.5 0ZM3.4775 10.725C4.329 10.114 5.369 9.75 6.5 9.75C7.631 9.75 8.671 10.114 9.5225 10.725C8.671 11.336 7.631 11.7 6.5 11.7C5.369 11.7 4.329 11.336 3.4775 10.725ZM10.491 9.828C9.3925 8.97 8.008 8.45 6.5 8.45C4.992 8.45 3.6075 8.97 2.509 9.828C1.755 8.9245 1.3 7.7675 1.3 6.5C1.3 3.627 3.627 1.3 6.5 1.3C9.373 1.3 11.7 3.627 11.7 6.5C11.7 7.7675 11.245 8.9245 10.491 9.828Z" fill="currentColor"></path>
-                                        <path d="M6.49961 2.59998C5.24511 2.59998 4.22461 3.62048 4.22461 4.87498C4.22461 6.12948 5.24511 7.14998 6.49961 7.14998C7.75411 7.14998 8.77461 6.12948 8.77461 4.87498C8.77461 3.62048 7.75411 2.59998 6.49961 2.59998ZM6.49961 5.84998C5.96011 5.84998 5.52461 5.41448 5.52461 4.87498C5.52461 4.33548 5.96011 3.89998 6.49961 3.89998C7.03911 3.89998 7.47461 4.33548 7.47461 4.87498C7.47461 5.41448 7.03911 5.84998 6.49961 5.84998Z" fill="currentColor"></path>
-                                    </svg>
-                                    <span className="text-sm font-medium">Login</span>
-                                </Link>
-                            )}
+                                        )}
+                                    </div>
+                                ) : (
+                                    <Link to="/login" className="flex items-center gap-2 border-b border-champagne/80 px-5 py-2 text-white hover:text-champagne hover:border-champagne transition-all duration-300 group">
+                                        <i className="fas fa-user text-sm group-hover:text-champagne transition-colors text-champagne"></i>
+                                        <span className="text-xs font-bold tracking-widest uppercase">Login</span>
+                                    </Link>
+                                )}
+                            </div>
                         </div>
                     </div>
 

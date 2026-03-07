@@ -384,11 +384,11 @@ function Home() {
                 }}></div>
 
                 {/* ── Hero Content Grid ── */}
-                <div className="relative z-10 container mx-auto px-4 sm:pl-6 lg:pl-13 pt-22 md:pt-20 pb-0">
+                <div className="relative z-10 container mx-auto px-4 sm:pl-6 lg:pl-13 pt-18 md:pt-16 pb-0">
                     <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between gap-4 sm:gap-6 lg:gap-0 min-h-0">
 
                         {/* ── Left Content — Bold Masculine Typography ── */}
-                        <div className="w-full lg:w-[50%] flex flex-col items-center lg:items-start pt-4 lg:pt-16 mb-2 z-10">
+                        <div className="w-full lg:w-[50%] flex flex-col items-center lg:items-start pt-4 lg:pt-14 mb-2 z-10">
 
                             {/* Tagline — horizontal line + text */}
                             <div data-hero-tagline className="flex items-center gap-4 mb-6 sm:mb-8 lg:mb-10">

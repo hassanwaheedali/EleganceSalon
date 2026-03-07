@@ -258,5 +258,5 @@ html.lenis body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
+  background: var(--color-champagne);
 }
